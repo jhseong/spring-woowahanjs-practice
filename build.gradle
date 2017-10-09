@@ -4,28 +4,103 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
+		maven { url 'http://repo.spring.io/plugins-release'}
+		maven { url "https://plugins.gradle.org/m2/" }
+
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
+		classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
 	}
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+	group = 'com.example'
+	version = '0.0.1-SNAPSHOT'
+	sourceCompatibility = 1.8
 
-repositories {
-	mavenCentral()
+	repositories {
+		mavenCentral()
+	}
 }
 
+project('backend') {
+	apply plugin: 'org.springframework.boot'
 
-dependencies {
-	compile('org.springframework.boot:spring-boot-starter-web')
-	runtime('org.springframework.boot:spring-boot-devtools')
-	compileOnly('org.projectlombok:lombok')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	apply plugin: 'war'
+	apply plugin: 'propdeps'
+
+	dependencies {
+		compile project(':frontend')
+
+		compile('org.springframework.boot:spring-boot-starter-web')
+		runtime('org.springframework.boot:spring-boot-devtools')
+		compileOnly('org.projectlombok:lombok')
+		testCompile('org.springframework.boot:spring-boot-starter-test')
+
+		optional('org.springframework.boot:spring-boot-configuration-processor')
+	}
+
+	compileJava.dependsOn(processResources)
+}
+
+project('frontend') {
+	apply plugin: 'com.moowork.node'
+
+	node {
+		version = '6.11.4'
+		npmVersion = '3.10.10'
+		download = true
+		distBaseUrl = 'https://nodejs.org/dist'
+	}
+
+	/**
+	 * 서버 배포환경에서 node_modules 다운로드
+	 * local 에서 node_modules를 새로 다운 받으려면 npmInstall 사용
+	 */
+	task npmInstallProduction(type: NpmTask) {
+		args = ['install', '--production']
+	}
+
+	/**
+	 * local 개발 시 사용
+	 * nodejs 설치 -> node_modules 다운로드 -> webpack-dev-server 실행
+	 * front-end 소스를 webpack-dev-server 가 서비스한다(java를 빌드할 필요없음)
+	 */
+	task npmRunDev(type: NpmTask) {
+		args = ['run', 'dev']
+	}
+
+	/**
+	 * front-end source 빌드
+	 * dist 폴더에 소스를 빌드함
+	 * npmRunDev로 로컬 실행하면 소스 수정시 알아서 빌드 하지만 순전히 소스 빌드만 수행 하고자 할때 사용
+	 */
+	task npmBuild(type: NpmTask) {
+		args = ['run', 'build']
+	}
+
+
+	task copyDistToStatic(type: Copy) {
+		from ("dist/")
+		into ("${rootProject.project('backend').projectDir}/src/main/resources/static/")
+		includeEmptyDirs = true
+	}
+
+	/**
+	 * 서버 배포시 사용
+	 * nodejs 설치 -> node_modules 다운로드 -> front-end source 빌드 -> resource/static 복사
+	 */
+	task frontEndBuild {
+		doLast {
+			nodeSetup.execute()
+//        npmInstallProduction.execute()
+			npmBuild.execute()
+			copyDistToStatic.execute()
+		}
+	}
 }

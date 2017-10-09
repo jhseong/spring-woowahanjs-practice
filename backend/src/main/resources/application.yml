@@ -1,0 +1,3 @@
+gatekeeper:
+  server:
+    domain: http://beta-sso-backoffice.woowa.in
