@@ -1,5 +1,5 @@
 import Woowahan from 'woowahan';
-import DefaultLayout from './layouts/default';
+import DefaultLayout from './views/layout/layout';
 import * as views from './views';
 import * as reducers from './reducers';
 
@@ -7,13 +7,11 @@ global.$ = global.jQuery = Woowahan.$;
 
 const app = new Woowahan();
 
-app.use(Woowahan.Layout('#app', DefaultLayout));
+app.use(Woowahan.Layout('.layout', DefaultLayout));
 app.use(reducers);
 
 const routes = {
-  url: '/', view: views.HomeView, container: '.contents', layout: 'DefaultLayout', pages: [
-    { url: 'posts', view: views.PostsView }
-  ]
+  url: '/', view: views.UserInfoView, container: '.navbar-right', layout: 'DefaultLayout'
 };
 
 app.start(routes);

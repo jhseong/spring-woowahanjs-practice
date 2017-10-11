@@ -34,11 +34,16 @@ project('backend') {
 	apply plugin: 'war'
 	apply plugin: 'propdeps'
 
+    repositories {
+        maven { url "http://nexus.woowa.in/content/groups/public" }
+    }
+
 	dependencies {
 		compile project(':frontend')
 
 		compile('org.springframework.boot:spring-boot-starter-web')
 		runtime('org.springframework.boot:spring-boot-devtools')
+        compile("in.woowa.platform.gatekeeper.client:gatekeeper-client:0.0.1-SNAPSHOT")
 		compileOnly('org.projectlombok:lombok')
 		testCompile('org.springframework.boot:spring-boot-starter-test')
 
