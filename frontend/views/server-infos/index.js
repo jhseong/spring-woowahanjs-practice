@@ -12,13 +12,9 @@ export const ServerInfosView = Woowahan.View.create('ServerInfosView', {
         this.super();
     },
 
-    getServerInfos(err, data) {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        // this.$el.find('.domain').val(data);
-        $('.domain').text(data);
-
+    getServerInfos(data) {
+        var domain = JSON.parse(data);
+        console.log("data ==> " + domain.url);
+        $(".domain").text(domain.url);
     }
 });

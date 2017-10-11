@@ -93,7 +93,20 @@ var commonConfig = {
         loader: 'handlebars-loader',
       },
     ],
-  }
+  },
+    devServer: {
+        port: 4000,
+        proxy: {
+            '/v1': {
+                target: {
+                    "host": "local-gatekeeper-admin.woowa.in",
+                    "protocol": "http",
+                    "port": "8080"
+                },
+                secure: false
+            }
+        }
+    }
 };
 
 function merge() {
