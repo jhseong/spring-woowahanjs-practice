@@ -95,6 +95,7 @@ var commonConfig = {
     ],
   },
     devServer: {
+        host: "local-gatekeeper-admin.woowa.in",
         port: 4000,
         proxy: {
             '/v1': {

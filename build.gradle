@@ -89,23 +89,17 @@ project('frontend') {
 		args = ['run', 'build']
 	}
 
+    jar {
+        from 'dist/'
+        eachFile { details ->
+            details.path = details.path.startsWith('META-INF') ?: 'static/'+details.path
+        }
+        includeEmptyDirs false
+    }
+    clean {
+        delete 'dist/'
+    }
 
-	task copyDistToStatic(type: Copy) {
-		from ("dist/")
-		into ("${rootProject.project('backend').projectDir}/src/main/resources/static/")
-		includeEmptyDirs = true
-	}
-
-	/**
-	 * 서버 배포시 사용
-	 * nodejs 설치 -> node_modules 다운로드 -> front-end source 빌드 -> resource/static 복사
-	 */
-	task frontEndBuild {
-		doLast {
-			nodeSetup.execute()
-//        npmInstallProduction.execute()
-			npmBuild.execute()
-			copyDistToStatic.execute()
-		}
-	}
+    jar.dependsOn nodeSetup, npmBuild
+    build.dependsOn jar
 }

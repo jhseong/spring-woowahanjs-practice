@@ -10,7 +10,7 @@ const app = new Woowahan();
 
 app.use(Woowahan.Layout('.layout', DefaultLayout));
 app.use(Woowahan.Store.create({
-    serverInfos: ''
+    gatekeeperServerDomain: ''
 }));
 
 app.use(reducers);
@@ -23,11 +23,7 @@ const routes = {
 };
 
 app.dispatch(Woowahan.Action.create(actions.SERVER_INFOS), function(data) {
-    var domain = JSON.parse(data);
-    app.getStates().serverInfos = domain.url;
-
-    console.log("data = " + data);
-
+    let gatekeeperServerDoamin = JSON.parse(data);
+    app.getStates().gatekeeperServerDomain = gatekeeperServerDoamin.url;
     app.start(routes);
 });
-
