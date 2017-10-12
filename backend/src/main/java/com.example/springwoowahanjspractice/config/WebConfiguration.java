@@ -48,6 +48,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
 				.excludePathPatterns("/signin/callback")
 //                .excludePathPatterns("/static/*.js")
 				.excludePathPatterns("/static/css/**")
+				.excludePathPatterns("/v1/gatekeeper-info")
 		;
 	}
 

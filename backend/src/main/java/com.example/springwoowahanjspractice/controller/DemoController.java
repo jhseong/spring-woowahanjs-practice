@@ -20,10 +20,4 @@ public class DemoController {
     public String hello() {
         return "hello";
     }
-
-    @GetMapping("/v1/domain-info")
-    public String domianInfo() {
-        log.debug(String.format("[domain] = [%s]", serverInfoProperties.getDomain()));
-        return serverInfoProperties.getDomain();
-    }
 }

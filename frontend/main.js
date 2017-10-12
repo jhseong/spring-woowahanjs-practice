@@ -10,15 +10,20 @@ const app = new Woowahan();
 
 app.use(Woowahan.Layout('.layout', DefaultLayout));
 app.use(Woowahan.Store.create({
-    gatekeeperServerDomain: ''
+    gatekeeperServerDomain: '',
+    messageUse: false
 }));
 
 app.use(reducers);
 
 const routes = {
-  url: '/', view: views.UserInfoView, container: '.navbar-right', layout: 'DefaultLayout',
+    url: '/',
+    view: views.FirstView,
+    container: '.main-contents',
+    layout: 'DefaultLayout',
     pages: [
-        { url: '/server-info', view: views.ServerInfosView, container: '.main-contents' }
+        { url: '/second', container: '.main-contents', view: views.SecondView },
+        { url: '/server-info', container: '.main-contents', view: views.ServerInfosView }
     ]
 };
 

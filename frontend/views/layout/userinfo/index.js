@@ -1,6 +1,7 @@
 import Woowahan from 'woowahan';
 import template from './index.hbs';
-import {GK_SESSION} from "../../actions/index";
+import {GK_SESSION} from "../../../actions/index";
+import { gkAlert } from '../../../reducers/toolbox'
 
 const GK_SESSION_ID = 'gk-session-id';
 
@@ -9,6 +10,12 @@ export const UserInfoView = Woowahan.View.create('UserInfoView', {
 
     initialize() {
         let sessionId = CookieHelper.read(GK_SESSION_ID);
+
+        if (sessionId == null || sessionId == "" || sessionId == undefined) {
+            gkAlert("sessionId 로그인 정보가 존재하지 않습니다.");
+            let gatekeeperLoginPageUrl = this.getStates().gatekeeperServerDomain + "/web/login?returnUrl=";
+            window.location.replace(gatekeeperLoginPageUrl + encodeURIComponent(window.location.href));
+        }
 
         this.dispatch(Woowahan.Action.create(GK_SESSION, sessionId), function (response) {
             this.setModel({
@@ -26,10 +33,8 @@ export const UserInfoView = Woowahan.View.create('UserInfoView', {
         "click .sign-out": "onSignOut"
     },
 
-
     onSignOut(event) {
         CookieHelper.delete(GK_SESSION_ID);
-
         let gatekeeperLoginPageUrl = this.getStates().gatekeeperServerDomain + "/web/login?returnUrl=";
         window.location.replace(gatekeeperLoginPageUrl + encodeURIComponent(window.location.href));
     }
@@ -63,6 +68,7 @@ var CookieHelper = {
         return null;
     },
     delete: function (key) {
+        debugger;
         document.cookie = key + '=; expires=' + CookieHelper._getExpireTimeFromNow(-1) + '; path=/';
     }
 }
