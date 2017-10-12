@@ -10,6 +10,6 @@ export const gkSessionReducer = Woowahan.Reducer.create(GK_SESSION, function(dat
         this.finish(response);
     };
 
-    var url = this.getStates().gatekeeperServerDomain + '/v1/sessions/' + data;
+    let url = this.getStates().gatekeeperServerDomain + '/v1/sessions/' + data;
     ajax.get(this, url);
 });

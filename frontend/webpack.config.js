@@ -91,7 +91,7 @@ var commonConfig = {
         test: /\.hbs$/,
         exclude: /node_modules/,
         loader: 'handlebars-loader',
-      },
+      }
     ],
   },
     devServer: {
