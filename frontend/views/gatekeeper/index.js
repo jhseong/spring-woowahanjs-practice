@@ -4,7 +4,7 @@ import {GK_SESSION} from "../../actions/index";
 
 const GK_SESSION_ID = 'gk-session-id';
 
-export const UserInfoView = Woowahan.View.create('UserInfoView', {
+export const GatekeeperUserVeiw = Woowahan.View.create('GatekeeperUserVeiw', {
     template,
 
     initialize() {

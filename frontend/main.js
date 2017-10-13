@@ -25,8 +25,8 @@ const routes = {
     ]
 };
 
-app.dispatch(Woowahan.Action.create(GATEKEEPER_INFO), function(data) {
-    let gatekeeperServerDoamin = JSON.parse(data);
+app.dispatch(Woowahan.Action.create(GATEKEEPER_INFO), function(response) {
+    let gatekeeperServerDoamin = JSON.parse(response);
     app.getStates().gatekeeperServerDomain = gatekeeperServerDoamin.url;
     app.start(routes);
 });
