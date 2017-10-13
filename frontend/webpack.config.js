@@ -100,9 +100,9 @@ var commonConfig = {
         proxy: {
             '/v1': {
                 target: {
-                    "host": "local-gatekeeper-admin.woowa.in",
+                    "host": "beta-gatekeeper-admin.woowa.in",
                     "protocol": "http",
-                    "port": "8080"
+                    "port": "80"
                 },
                 secure: false
             }

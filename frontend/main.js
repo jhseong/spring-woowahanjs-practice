@@ -10,8 +10,7 @@ const app = new Woowahan();
 
 app.use(Woowahan.Layout('.layout', DefaultLayout));
 app.use(Woowahan.Store.create({
-    gatekeeperServerDomain: '',
-    messageUse: false
+    gatekeeperServerDomain: ''
 }));
 
 app.use(reducers);
@@ -22,8 +21,7 @@ const routes = {
     container: '.main-contents',
     layout: 'DefaultLayout',
     pages: [
-        { url: '/second', container: '.main-contents', view: views.SecondView },
-        { url: '/server-info', container: '.main-contents', view: views.ServerInfosView }
+        { url: '/second', container: '.main-contents', view: views.SecondView }
     ]
 };
 

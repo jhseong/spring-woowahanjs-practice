@@ -11,12 +11,6 @@ export const UserInfoView = Woowahan.View.create('UserInfoView', {
     initialize() {
         let sessionId = CookieHelper.read(GK_SESSION_ID);
 
-        if (sessionId == null || sessionId == "" || sessionId == undefined) {
-            gkAlert("sessionId 로그인 정보가 존재하지 않습니다.");
-            let gatekeeperLoginPageUrl = this.getStates().gatekeeperServerDomain + "/web/login?returnUrl=";
-            window.location.replace(gatekeeperLoginPageUrl + encodeURIComponent(window.location.href));
-        }
-
         this.dispatch(Woowahan.Action.create(GK_SESSION, sessionId), function (response) {
             this.setModel({
                 corporateName: response.corporateName,

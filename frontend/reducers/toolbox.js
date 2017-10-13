@@ -30,21 +30,15 @@ export function failHandler(error) {
   switch (error.status) {
       case 400:
       case 401:
-          gkAlert(this, '로그인 정보가 존재하지 않습니다.');
+          alert('로그인 정보가 존재하지 않습니다.');
+
           let gatekeeperLoginPageUrl = this.getStates().gatekeeperServerDomain + "/web/login?returnUrl=";
-          debugger;
           window.location.replace(gatekeeperLoginPageUrl + encodeURIComponent(window.location.href));
 
           break;
-      case 404: gkAlert('잘못된 요청입니다.'); break;
-      default: gkAlert('시스템 오류가 발생하였습니다.'); break;
+      case 404: alert('잘못된 요청입니다.'); break;
+      default: alert('시스템 오류가 발생하였습니다.'); break;
   }
 
   this.finish(error, null);
-}
-
-export function gkAlert(object, msg) {
-   if (object.getStates().messageUse) {
-      alert(msg);
-   }
 }
