@@ -1,2 +1,2 @@
-export const SERVER_INFOS = 'SERVER_INFOS';
+export const GATEKEEPER_INFO = 'GATEKEEPER_INFO';
 export const GK_SESSION = 'GK_SESSION';

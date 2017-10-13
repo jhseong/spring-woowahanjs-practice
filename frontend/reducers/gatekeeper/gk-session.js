@@ -1,6 +1,6 @@
 import Woowahan from 'woowahan';
 import { successHandler, failHandler, ajax } from './toolbox';
-import { GK_SESSION} from "../actions/index";
+import { GK_SESSION} from "../../actions/index";
 
 export const gkSessionReducer = Woowahan.Reducer.create(GK_SESSION, function(data) {
     this.use(Woowahan.Reducer.SUCCESS, successHandler);

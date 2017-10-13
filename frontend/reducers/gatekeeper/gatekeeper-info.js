@@ -1,9 +1,9 @@
 import Woowahan from 'woowahan';
 import { successHandler, failHandler, ajax } from './toolbox';
-import { SERVER_INFOS } from '../actions';
+import { GATEKEEPER_INFO } from '../../actions/index';
 
 
-export const serverInfos = Woowahan.Reducer.create(SERVER_INFOS, function(options) {
+export const serverInfos = Woowahan.Reducer.create(GATEKEEPER_INFO, function(options) {
     this.use(Woowahan.Reducer.SUCCESS, successHandler);
     this.use(Woowahan.Reducer.FAIL, failHandler);
 

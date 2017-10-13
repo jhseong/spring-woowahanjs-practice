@@ -1,2 +1,2 @@
-export * from './server-infos';
-export * from './gk-session';
+export * from './gatekeeper/gatekeeper-info';
+export * from './gatekeeper/gk-session';

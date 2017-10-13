@@ -2,7 +2,7 @@ import Woowahan from 'woowahan';
 import DefaultLayout from './views/layout/layout';
 import * as views from './views';
 import * as reducers from './reducers';
-import * as actions from './actions';
+import { GATEKEEPER_INFO } from './actions';
 
 global.$ = global.jQuery = Woowahan.$;
 
@@ -25,7 +25,7 @@ const routes = {
     ]
 };
 
-app.dispatch(Woowahan.Action.create(actions.SERVER_INFOS), function(data) {
+app.dispatch(Woowahan.Action.create(GATEKEEPER_INFO), function(data) {
     let gatekeeperServerDoamin = JSON.parse(data);
     app.getStates().gatekeeperServerDomain = gatekeeperServerDoamin.url;
     app.start(routes);

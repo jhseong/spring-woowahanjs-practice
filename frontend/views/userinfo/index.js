@@ -61,7 +61,6 @@ var CookieHelper = {
         return null;
     },
     delete: function (key) {
-        debugger;
         document.cookie = key + '=; expires=' + CookieHelper._getExpireTimeFromNow(-1) + '; path=/';
     }
 }
