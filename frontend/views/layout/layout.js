@@ -1,6 +1,6 @@
 import Woowahan from 'woowahan';
 import template from './layout.hbs';
-import { UserInfoView } from './userinfo';
+import { UserInfoView } from '../userinfo';
 
 export default Woowahan.View.create('DefaultLayout', {
 

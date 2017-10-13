@@ -1,7 +1,6 @@
 import Woowahan from 'woowahan';
 import template from './index.hbs';
-import {GK_SESSION} from "../../../actions/index";
-import { gkAlert } from '../../../reducers/toolbox'
+import {GK_SESSION} from "../../actions/index";
 
 const GK_SESSION_ID = 'gk-session-id';
 
