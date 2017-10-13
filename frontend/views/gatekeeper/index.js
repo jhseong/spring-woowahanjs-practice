@@ -1,8 +1,10 @@
 import Woowahan from 'woowahan';
 import template from './index.hbs';
 import {GK_SESSION} from "../../actions/index";
+import {gkAlert} from "../../reducers/gatekeeper/toolbox";
 
 const GK_SESSION_ID = 'gk-session-id';
+const GK_SUB_DOMAIN = '.woowa.in';
 
 export const GatekeeperUserVeiw = Woowahan.View.create('GatekeeperUserVeiw', {
     template,
@@ -28,6 +30,10 @@ export const GatekeeperUserVeiw = Woowahan.View.create('GatekeeperUserVeiw', {
 
     onSignOut(event) {
         CookieHelper.delete(GK_SESSION_ID);
+        this.redirectLoginPage();
+    },
+
+    redirectLoginPage() {
         let gatekeeperLoginPageUrl = this.getStates().gatekeeperServerDomain + "/web/login?returnUrl=";
         window.location.replace(gatekeeperLoginPageUrl + encodeURIComponent(window.location.href));
     }
@@ -60,7 +66,8 @@ var CookieHelper = {
         }
         return null;
     },
+
     delete: function (key) {
-        document.cookie = key + '=; expires=' + CookieHelper._getExpireTimeFromNow(-1) + '; path=/';
+        document.cookie = key + '=; expires=' + this._getExpireTimeFromNow(-10) + '; path=/; domain=' + GK_SUB_DOMAIN + ";";
     }
 }

@@ -5,6 +5,9 @@ import * as reducers from './reducers';
 import { GATEKEEPER_INFO } from './actions';
 
 global.$ = global.jQuery = Woowahan.$;
+global.GK = {
+    isMessageUse: true,
+};
 
 const app = new Woowahan();
 
